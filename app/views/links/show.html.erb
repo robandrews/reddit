@@ -1,0 +1,31 @@
+<h1><%= @link.title %></h1>
+<h3><%= link_to "#{@link.url}", "http://#{@link.url}"%> submitted by <%= @link.submitter.username %></h3>
+<p><%= @link.text %></p>
+<% if current_user.id == @link.submitter_id %>
+  <%= link_to "Edit Link", edit_link_url(@link)%>
+<% end %>
+<br><hr>
+
+
+<% @link.comments.each do |comment| %>
+  <%= comment.text %><br>
+  Submitted by <%= comment.author.username %>
+  <br>
+  <br>
+  <form action="<%= link_comments_url(@link) %>" method="post">
+    <input type="hidden" name="authenticity_token"
+           value="<%= form_authenticity_token %>">
+    <%= current_user.username %>:<input type="text" name="comment[text]" value="">
+    <input type="hidden" name="comment[parent_comment_id]" value="<%= comment.id %>">
+    <input type="submit" value="Add Response">
+  </form>
+  <hr>
+<% end %>
+
+<br><br>
+
+<form action="<%= link_comments_url(@link) %>" method="post">
+  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+  <%= current_user.username %>:<input type="text" name="comment[text]" value="">
+  <p><input type="submit" value="Add Comment"></p>
+</form>

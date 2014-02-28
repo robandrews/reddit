@@ -1,0 +1,28 @@
+<h1>Link</h1>
+
+<form action="<%= user_links_url %>" method="post" id="newlink">
+  <input type="hidden" name="authenticity_token" id="<%= form_authenticity_token %>">
+
+  <label>Title
+    <input type="text" name="link[title]">
+  </label><br>
+
+  <label>URL
+    <input type="text" name="link[url]">
+  </label><br>
+
+  <label>Description<br>
+    <textarea rows="2" cols="50" name="link[text]" id="newlink"
+              onFocus="this.value=''">
+              Optional link description...</textarea>
+  </label><br><br>
+
+
+  <h3>Subs<h3>
+  <% Sub.all.each do |sub| %>
+    <input type="checkbox" name="link[sub_ids][]" value="<%= sub.id %>"><%= sub.name %>
+  <% end %>
+
+
+  <p><input type="submit" value="Create Link"></p>
+</form>

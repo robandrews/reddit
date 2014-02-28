@@ -1,0 +1,26 @@
+<h1>New Sub</h1>
+
+<form action="<%= subs_url %>" method="post" id="newsub">
+  <input type="hidden" name="authenticity_token" id="<%= form_authenticity_token %>">
+  <label>New Sub Name
+    <input type="text" name="sub[name]" value="">
+  </label>
+  <br><hr>
+  <h3>Optional additional links</h3>
+  <% 5.times do |i| %>
+  <label>Title
+    <input type="text" name="link[<%= i %>][title]">
+  </label><br>
+
+  <label>URL
+    <input type="text" name="link[<%= i %>][url]">
+  </label><br>
+
+  <label>Description<br>
+    <textarea rows="2" cols="50" name="link[<%= i %>][text]" id="newsub" onFocus="this.value=''">
+    Optional link description...</textarea>
+  </label><br><br>
+  <% end %>
+
+  <p><input type="submit" value="Create sub"></p>
+</form>
