@@ -1,0 +1,5 @@
+<h1><%= @sub.name %> | <%= link_to "Submit Link", new_user_link_url(current_user.id)%></h1>
+
+<% @sub.links.each do |link| %>
+  <%= link_to link.title, link %><br>
+<% end %>

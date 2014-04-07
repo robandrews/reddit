@@ -8,16 +8,26 @@ class SubsController < ApplicationController
   def create
     @sub = Sub.new(sub_params)
     @sub.moderator_id = current_user.id
-
-    @sub.links.new(link_params)
-
+    user_hash = {:submitter_id => current_user.id}
+    params = link_params.map do |link_param|
+      link_param.merge!(user_hash)
+    end
+    @sub.links.new(params)
     if @sub.save
-      render :json => @sub
+      redirect_to @sub
     else
       flash[:errors] = @sub.errors.full_messages
     end
   end
 
+  def index
+    @subs = Sub.all
+  end
+  
+  def show
+    @sub = Sub.find(params[:id])
+  end
+  
   private
 
   def sub_params

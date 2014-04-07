@@ -1,5 +1,5 @@
 <h1><%= @link.title %></h1>
-<h3><%= link_to "#{@link.url}", "http://#{@link.url}"%> submitted by <%= @link.submitter.username %></h3>
+<h3><%= link_to "#{@link.url}", "#{@link.url}"%> submitted by <%= @link.submitter.username %></h3>
 <p><%= @link.text %></p>
 <% if current_user.id == @link.submitter_id %>
   <%= link_to "Edit Link", edit_link_url(@link)%>
