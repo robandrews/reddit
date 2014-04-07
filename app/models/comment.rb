@@ -16,14 +16,16 @@ class Comment < ActiveRecord::Base
     :link,
     :primary_key => :id,
     :foreign_key => :link_id,
-    :class_name => "Link"
+    :class_name => "Link",
+    :inverse_of => :comments
   )
 
   belongs_to(
     :author,
     :primary_key => :id,
     :foreign_key => :author_id,
-    :class_name => "User"
+    :class_name => "User",
+    :inverse_of => :comments
   )
 
   belongs_to(
@@ -32,4 +34,10 @@ class Comment < ActiveRecord::Base
     :foreign_key => :parent_comment_id,
     :class_name => "Comment"
   )
+  
+  has_many(:child_comments,
+  :class_name => "Comment",
+  :foreign_key => :parent_comment_id,
+  :primary_key => :id)
+  
 end

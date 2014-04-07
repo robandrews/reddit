@@ -1,9 +1,14 @@
 class LinksController < ApplicationController
   before_action :require_current_user!
+  
   def new
     @link = Link.new
   end
 
+  def index
+    @links = Link.all
+  end
+  
   def create
     @link = current_user.links.new(link_params)
     if @link.save

@@ -14,13 +14,15 @@ class LinkSub < ActiveRecord::Base
     :sub,
     :primary_key => :id,
     :foreign_key => :sub_id,
-    :class_name => "Sub"
+    :class_name => "Sub",
+    :inverse_of => :link_subs
   )
 
   belongs_to(
     :link,
     :primary_key => :id,
     :foreign_key => :link_id,
-    :class_name => "Link"
+    :class_name => "Link",
+    :inverse_of => :link_subs
   )
 end

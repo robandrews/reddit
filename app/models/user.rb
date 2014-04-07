@@ -10,8 +10,14 @@
 #  updated_at      :datetime
 #
 
+
 class User < ActiveRecord::Base
+  before_validation :ensure_session_token
+  
   validates :username, :presence => true
+  validates :password, :length => { :minimum => 6, :allow_nil => true }
+  validates :password_digest, presence: true
+  
   attr_reader :password
 
   has_many(
@@ -47,5 +53,11 @@ class User < ActiveRecord::Base
     user = User.find_by_username(username)
     return user if !!user && user.is_password?(password)
     nil
+  end
+  
+  private
+
+  def ensure_session_token
+    self.session_token ||= reset_session_token!
   end
 end
